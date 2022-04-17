@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Option Filtering</title>
+
+    <link rel="shortcut icon" type="image/png" href="images/bull-logo.png" />
+
+    <link rel="stylesheet" href="style/stock.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+    />
+  </head>
+
+  <body>
+    <script type="importmap">
+      {
+        "imports": {
+          "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+        }
+      }
+    </script>
+    <div id="app" class="container is-centered">
+      <p class="title container text-center">Trade Symbol generator</p>
+      <div class="field is-grouped">
+        <p class="control">
+          <div class="select">
+            <select v-model="expiry">
+              <option disabled value="">Please select Expriry</option>
+              <option v-for="mon in months">{{ mon }}</option>
+            </select>
+          </div>
+        </p>
+        <p class="control">
+          <div class="select">
+            <select v-model="optionType">
+              <option value="CE">CALL</option>
+              <option value="PE">PUT</option>
+            </select>
+          </div>
+        </p>
+        <p class="control">
+          <div class="control">
+            <input
+              class="input"
+              list="stockList"
+              v-model="stock"
+              placeholder="Select Symbol"
+              @change="updateStepInterval"
+            />
+            <datalist id="stockList">
+              <option :value="stocks.symbol" v-for="stocks in stockList">
+                {{ stocks.underlying }}
+              </option>
+            </datalist>
+          </div>
+        </p>  
+        <p class="control">
+          <input
+            class="input"
+            v-model="price"
+            placeholder="Enter Strike Price"
+            type="number"
+            :step="stepInterval"
+          />
+        </p>
+        <p class="control">
+          <button class="button is-info" @click="fetchData"> Add </button>
+        </p>
+        <p class="control">
+          <button class="button is-warning" @click="undo"> Undo </button>
+        </p>
+        <p class="control">
+          <button class="button is-danger" @click="clear"> Clear List </button>
+        </p>
+      </div>
+      <hr />
+      <div class="columns">
+        <div class="column">
+          <table class="report">
+            <tr>
+              <th>Underlying</th>
+              <th>Symbol</th>
+              <th>Lot size</th>
+              <th>Step Interval</th>
+            </tr>
+            <tr v-for="stock in stockList" class="is-size-6">
+              <td>{{stock.underlying}}</td>
+              <td>{{stock.symbol}}</td>
+              <td>{{stock.lotsize}}</td>
+              <td>{{stock.steps}}</td>
+            </tr>
+          </table>
+        </div>
+        <div class="column">
+          <div class="level ml-2">
+            <div class="level-left">
+              <table class="report">
+                <tr>
+                  <th>Step Interval</th>
+                  <th>Symbol</th>
+                </tr>
+                <template v-for="sym in selectedSymbols">
+                  <tr class="is-size-6">
+                    <td>{{sym.steps}}/{{sym.lotsize}}</td>
+                    <td>{{sym.symbol}}</td>
+                  </tr>
+                </template>
+              </table>
+              <table class="report">
+                <tr>
+                  <th>Lot Size</th>
+                </tr>
+                <template v-for="sym in selectedSymbols">
+                  <tr class="is-size-6">
+                    <td>{{sym.lotsize}}</td>
+                  </tr>
+                </template>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <script type="module" src="stock.js"></script>
+  </body>
+</html>

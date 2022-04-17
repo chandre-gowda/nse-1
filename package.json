@@ -1,0 +1,22 @@
+{
+  "name": "nse",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon --ignore ./OISTATS/ server.js",
+    "stub": "nodemon --ignore ./OISTATS/ server.js stub ",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.26.1",
+    "express": "^4.17.3"
+  },
+  "engines": {
+    "node": "16.x"
+  }
+}
