@@ -4,10 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon --ignore ./OISTATS/ server.js",
-    "stub": "nodemon --ignore ./OISTATS/ server.js stub ",
-    "start": "node server.js"
+    "dev": "open http://localhost:3000 && nodemon --ignore ./OISTATS/ server.js",
+    "stub": "open http://localhost:3000 && nodemon --ignore ./OISTATS/ server.js stub ",
+    "start": "open http://localhost:3000 && node server.js"
   },
   "keywords": [],
   "author": "",

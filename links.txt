@@ -9,6 +9,19 @@ https://www.demo2s.com/javascript/javascript-c3.html
 
 ===================================
 
+Kill port 3000 in MAC:
+> lsof -i tcp:3000
+and then kill the pid returned
+
+Windows:
+netstat -ano | findstr :3000
+tskill typeyourPIDhere
+
+OR:
+npx kill-port 3000
+
+===================================
+
 Once git code is committed and synced to git hub, run below command to push the code to heroku app
 
 git push heroku-staging HEAD:master
