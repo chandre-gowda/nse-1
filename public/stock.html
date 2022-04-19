@@ -24,6 +24,7 @@
       }
     </script>
     <div id="app" class="container is-centered">
+      <form v-on:submit.prevent="submitData">
       <p class="title container text-center">Trade Symbol generator</p>
       <div class="field is-grouped">
         <p class="control">
@@ -49,7 +50,8 @@
               list="stockList"
               v-model="stock"
               placeholder="Select Symbol"
-              @change="updateStepInterval"
+              @change="populateStock(stock)"
+              @focus="stock=''"
             />
             <datalist id="stockList">
               <option :value="stocks.symbol" v-for="stocks in stockList">
@@ -65,31 +67,42 @@
             placeholder="Enter Strike Price"
             type="number"
             :step="stepInterval"
+            ref="stockPrice"
           />
         </p>
         <p class="control">
-          <button class="button is-info" @click="fetchData"> Add </button>
+          <button class="button is-info" @click.prevent="submitData"> Add </button>
         </p>
         <p class="control">
-          <button class="button is-warning" @click="undo"> Undo </button>
+          <button class="button is-warning" @click.prevent="undo"> Undo </button>
         </p>
         <p class="control">
-          <button class="button is-danger" @click="clear"> Clear List </button>
+          <button class="button is-danger" @click.prevent="clear"> Clear List </button>
         </p>
       </div>
+      </form>
       <hr />
       <div class="columns">
         <div class="column">
+          <input v-model="tradingViewChartID" placeholder="Trading view chart ID">
+          <br>
           <table class="report">
             <tr>
+              <th>Chart</th>
               <th>Underlying</th>
               <th>Symbol</th>
               <th>Lot size</th>
               <th>Step Interval</th>
             </tr>
             <tr v-for="s in stockList" class="is-size-6">
-              <td>{{s.underlying}}</td> 
-              <td> <a :href="'https://www.tradingview.com/chart/2KtTJcpt/?&interval=5&symbol=NSE:'+s.symbol" target="_blank" @click="populateStock(s.symbol)">{{s.symbol}}</a></td>
+              <td class="has-text-centered">
+                <a :href="chartLink + s.symbol" target="_blank" @click="populateStock(s.symbol)">&nbsp;<img src="images/graph-10.svg" width="15" height="auto" alt="open chart"> </a>
+              </td> 
+              <td class="has-text-left">{{s.underlying}}</td> 
+              <td class="has-text-left">
+                 <a @click="populateStock(s.symbol)">{{s.symbol}}</a>
+                 <!-- <a :href="'https://www.tradingview.com/chart/'+tradingViewChartID+'/?&interval=5&symbol=NSE:'+s.symbol" target="_blank" @click="populateStock(s.symbol)">&nbsp;<img src="images/graph-10.svg" width="15" height="auto" alt="open chart"> </a> -->
+              </td>
               <td>{{s.lotsize}}</td>
               <td>{{s.steps}}</td>
             </tr>
@@ -100,7 +113,7 @@
             <div class="level-left">
               <table class="report">
                 <tr>
-                  <th>Step Interval</th>
+                  <th>Steps/Lots</th>
                   <th>Symbol</th>
                 </tr>
                 <template v-for="sym in selectedSymbols">
@@ -113,10 +126,12 @@
               <table class="report">
                 <tr>
                   <th>Lot Size</th>
+                  <th>Step Interval</th>
                 </tr>
                 <template v-for="sym in selectedSymbols">
                   <tr class="is-size-6">
                     <td>{{sym.lotsize}}</td>
+                    <td>{{sym.steps}}</td>
                   </tr>
                 </template>
               </table>

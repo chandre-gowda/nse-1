@@ -63,9 +63,9 @@ Deploy Your Code
 To deploy your app to Heroku, use the git push command to push the code from your local repository’s main branch to your heroku remote. For example:
 
 If you have not renamed:
-git push heroku HEAD:master
+> git push heroku HEAD:master
 If you have renamed:
-git push heroku-staging HEAD:master
+> git push heroku-staging HEAD:master
 
 Use this same command whenever you want to deploy the latest committed version of your code to Heroku.
 

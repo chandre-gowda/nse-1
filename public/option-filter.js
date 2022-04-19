@@ -23,10 +23,11 @@ export default {
         "DEC",
       ],
       expiry: "",
-      price: "500.0",
+      price: "",
       optionType: "CE",
       selectedSymbols: [],
       stepInterval: 1,
+      tradingViewChartID: "2KtTJcpt",
     };
   },
   methods: {
@@ -41,8 +42,11 @@ export default {
       // on click of link it populates dropdown and step interval
       this.stock = sym;
       this.updateStepInterval();
+      this.price = "";
+      // this.$refs.stockPrice.select();
+      this.$refs.stockPrice.focus();
     },
-    fetchData() {
+    submitData() {
       let filtered = this.stockList.filter((st) => st.symbol == this.stock);
       if (filtered.length > 0) {
         let formatedPrice = Number(this.price).toFixed(1);
@@ -61,9 +65,9 @@ export default {
         });
       }
     },
-    updateStepInterval() {
+    updateStepInterval(sym) {
       let filtered = this.stockList.filter((st) => st.symbol == this.stock);
-      this.stepInterval = filtered[0].steps;
+      this.stepInterval = filtered.length > 0 ? filtered[0].steps : 1;
     },
   },
   computed: {
@@ -71,9 +75,18 @@ export default {
       let mon = new Date().getMonth();
       return this.months[mon];
     },
+    chartLink() {
+      let url = "https://www.tradingview.com/chart/";
+      let params = "?interval=5&symbol=NSE:";
+      let chartID =
+        this.tradingViewChartID.trim() !== ""
+          ? this.tradingViewChartID.trim() + "/"
+          : "";
+      return url + chartID + params;
+    },
   },
   mounted() {
     this.expiry = this.currentMonth;
-    this.fetchData();
+    // this.submitData();
   },
 };
