@@ -38,6 +38,7 @@ export default {
       this.selectedSymbols.pop();
     },
     populateStock(sym) {
+      // on click of link it populates dropdown and step interval
       this.stock = sym;
       this.updateStepInterval();
     },
