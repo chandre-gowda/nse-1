@@ -87,11 +87,11 @@
               <th>Lot size</th>
               <th>Step Interval</th>
             </tr>
-            <tr v-for="stock in stockList" class="is-size-6">
-              <td>{{stock.underlying}}</td>
-              <td>{{stock.symbol}}</td>
-              <td>{{stock.lotsize}}</td>
-              <td>{{stock.steps}}</td>
+            <tr v-for="s in stockList" class="is-size-6">
+              <td>{{s.underlying}}</td>
+              <td> <a :href="'https://www.tradingview.com/chart/2KtTJcpt/?&interval=5&symbol=NSE:'+s.symbol" target="_blank" @click="populateStock(s.symbol)">{{s.symbol}}</a></td>
+              <td>{{s.lotsize}}</td>
+              <td>{{s.steps}}</td>
             </tr>
           </table>
         </div>

@@ -37,6 +37,10 @@ export default {
       this.selectedSymbols.pop();
       this.selectedSymbols.pop();
     },
+    populateStock(sym) {
+      this.stock = sym;
+      this.updateStepInterval();
+    },
     fetchData() {
       let filtered = this.stockList.filter((st) => st.symbol == this.stock);
       if (filtered.length > 0) {
