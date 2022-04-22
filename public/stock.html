@@ -23,7 +23,17 @@
         }
       }
     </script>
+    
     <div id="app" class="container is-centered">
+      <!-- TradingView Widget BEGIN -->
+      <!-- <div class="tradingview-widget-container" style="height: 610px;">
+        <div id="tradingview_chart" style="height: 100%;">
+          <iframe id="tradingview_iframe" src="https://in.investing.com/equities/larsen-toubro-infotech-ltd" 
+          style="width: 100%; height: 100%; margin: 0 !important; padding: 0 !important;" 
+          frameborder="0" allowtransparency="true" scrolling="true" allowfullscreen="" ></iframe>
+        </div> 
+      </div>-->
+      <!-- TradingView Widget END -->
       <form v-on:submit.prevent="submitData">
       <p class="title container text-center">Trade Symbol generator</p>
       <div class="field is-grouped">
@@ -88,13 +98,16 @@
           <br>
           <table class="report">
             <tr>
+              <th>SL No</th>
               <th>Chart</th>
               <th>Underlying</th>
               <th>Symbol</th>
               <th>Lot size</th>
               <th>Step Interval</th>
             </tr>
-            <tr v-for="s in stockList" class="is-size-6">
+            <tr v-for="(s, i) in stockList" class="is-size-6">
+              <td class="has-text-left">{{i+1}}</td> 
+
               <td class="has-text-centered">
                 <a :href="chartLink + s.symbol" target="_blank" @click="populateStock(s.symbol)">&nbsp;<img src="images/graph-10.svg" width="15" height="auto" alt="open chart"> </a>
               </td> 
@@ -127,11 +140,15 @@
                 <tr>
                   <th>Lot Size</th>
                   <th>Step Interval</th>
+                  <th>Chart</th>
                 </tr>
-                <template v-for="sym in selectedSymbols">
+                <template v-for="(sym,i) in selectedSymbols">
                   <tr class="is-size-6">
                     <td>{{sym.lotsize}}</td>
                     <td>{{sym.steps}}</td>
+                    <td class="has-text-centered">
+                      <a v-if="i%2 == 0" :href="chartLink + sym.symbol.replace('NSE ', '')" target="_blank">&nbsp;<img src="images/graph-10.svg" width="15" height="auto" alt="open chart"> </a>
+                    </td> 
                   </tr>
                 </template>
               </table>

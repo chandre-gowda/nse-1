@@ -20,6 +20,11 @@ tskill typeyourPIDhere
 OR:
 npx kill-port 3000
 
+====
+Link Trading View Chart
+https://www.tradingview.com/widget/advanced-chart/
+https://google.com/finance/quote/NIFTY_50:INDEXNSE
+https://www.google.com/finance/quote/SBIN:NSE
 ===================================
 
 Once git code is committed and synced to git hub, run below command to push the code to heroku app
@@ -28,9 +33,6 @@ git push heroku-staging HEAD:master
 
 NOTE: GIT remote to heroku has renamed to heroku-staging using below command 
 > git remote rename heroku heroku-staging
-
-
-
 ====
 heroku login
 heroku create -a car-trading
