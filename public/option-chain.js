@@ -59,6 +59,11 @@ export default {
             <put-call-trend :symbol="symbol">Place for Put Call Trend</put-call-trend>
           </div>
         <hr /> 
+        <div class="pcr">
+          PCR (oi): {{ Number(store.getTotals(symbol).PE.oi / store.getTotals(symbol).CE.oi).toFixed(2) }}
+          &nbsp;
+          PCR (volume): {{ Number(store.getTotals(symbol).PE.volume / store.getTotals(symbol).CE.volume).toFixed(2) }}
+        </div>
 
         <div class="chainTabContainer">
           <table id="optionAnalyzer" class="report">

@@ -22,6 +22,12 @@ html {
   background-color: rgb(174, 243, 243);
   text-align: center !important;
 }
+.pcr {
+  background-color: rgb(223, 237, 144);
+  text-align: center !important;
+  padding: 3px 0;
+  font-weight: bold;
+}
 .spotprice {
   color: brown;
 }
