@@ -22,4 +22,20 @@ export const store = reactive({
   getChartData(sym = "NIFTY") {
     return this.data[sym] ? this.data[sym].totals.chart : {};
   },
+  getVolumePCR(sym = "NIFTY") {
+    return this.data[sym] ? this.data[sym].pcrVolume : 0;
+  },
+  getOiPCR(sym = "NIFTY") {
+    return this.data[sym] ? this.data[sym].pcrOI : 0;
+  },
+  getOiTotal(sym = "NIFTY", optionType = "CE") {
+    return this.data[sym]
+      ? this.data[sym].currentExpiryOIandVolumeTotal[optionType].totOI
+      : 0;
+  },
+  getVolumeTotal(sym = "NIFTY", optionType = "CE") {
+    return this.data[sym]
+      ? this.data[sym].currentExpiryOIandVolumeTotal[optionType].totVol
+      : 0;
+  },
 });

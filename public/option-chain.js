@@ -40,7 +40,11 @@ export default {
   template: `
       <template v-if="isDataAvailable()">
         <div class="reportHeader">
-          <span class="symbol">{{ symbol }} </span> :  <span class="spotprice">{{spotPrice()}} </span> 
+          <span class="symbol">{{ symbol }} </span> :  <span class="spotprice">{{spotPrice()}} </span> <span class="pcr">
+          PCR (oi): {{ store.getOiPCR(symbol) }}
+          &nbsp;
+          PCR (volume): {{ store.getVolumePCR(symbol) }} 
+        </span>
           <hr /> 
           <div class="headerActions">
             <div class="timestamp">
@@ -59,10 +63,18 @@ export default {
             <put-call-trend :symbol="symbol">Place for Put Call Trend</put-call-trend>
           </div>
         <hr /> 
-        <div class="pcr">
-          PCR (oi): {{ Number(store.getTotals(symbol).PE.oi / store.getTotals(symbol).CE.oi).toFixed(2) }}
+        <div class="stats">
+          <!- PCR (oi): {{ Number(store.getTotals(symbol).PE.oi / store.getTotals(symbol).CE.oi).toFixed(2) }}
           &nbsp;
-          PCR (volume): {{ Number(store.getTotals(symbol).PE.volume / store.getTotals(symbol).CE.volume).toFixed(2) }}
+          PCR (volume): {{ Number(store.getTotals(symbol).PE.volume / store.getTotals(symbol).CE.volume).toFixed(2) }} 
+           />
+          Total PUT OI: {{ Number(store.getOiTotal(symbol, 'PE')).toLocaleString() }}
+          &nbsp;
+          Total PUT Volume: {{ Number(store.getVolumeTotal(symbol, 'PE')).toLocaleString() }}
+          <br/>
+          Total CALL OI: {{ Number(store.getOiTotal(symbol, 'CE')).toLocaleString() }}
+          &nbsp;
+          Total CALL Volume: {{ Number(store.getVolumeTotal(symbol, 'CE')).toLocaleString() }}
         </div>
 
         <div class="chainTabContainer">
