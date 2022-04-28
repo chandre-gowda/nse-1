@@ -192,6 +192,8 @@ function getDataForCurrentExpiry(response, symbol, range = 10, expiry = 0) {
   let { CE, PE } = response.filtered;
   let pcrOI = (PE.totOI / CE.totOI).toFixed(2);
   let pcrVolume = (PE.totVol / CE.totVol).toFixed(2);
+  let totalOiDiff = PE.totOI - CE.totOI;
+
   // Calculate totals and high and low of each columns
   if (filteredStrikes.length > 0) {
     let totals = calculateTotals(filteredStrikes);
@@ -218,6 +220,7 @@ function getDataForCurrentExpiry(response, symbol, range = 10, expiry = 0) {
       currentExpiryOIandVolumeTotal: { CE, PE },
       pcrOI,
       pcrVolume,
+      totalOiDiff,
     };
   }
   return {

@@ -22,6 +22,9 @@ export const store = reactive({
   getChartData(sym = "NIFTY") {
     return this.data[sym] ? this.data[sym].totals.chart : {};
   },
+  getTotalOiDiff(sym = "NIFTY") {
+    return this.data[sym] ? this.data[sym].totalOiDiff : {};
+  },
   getVolumePCR(sym = "NIFTY") {
     return this.data[sym] ? this.data[sym].pcrVolume : 0;
   },

@@ -40,10 +40,14 @@ export default {
   template: `
       <template v-if="isDataAvailable()">
         <div class="reportHeader">
-          <span class="symbol">{{ symbol }} </span> :  <span class="spotprice">{{spotPrice()}} </span> <span class="pcr">
-          PCR (oi): {{ store.getOiPCR(symbol) }}
-          &nbsp;
-          PCR (volume): {{ store.getVolumePCR(symbol) }} 
+          <span class="symbol">{{ symbol }} </span> :  <span class="spotprice">{{spotPrice()}} </span> 
+          <span class="pcr">
+            PCR (oi): {{ store.getOiPCR(symbol) }}
+            &nbsp;
+            PCR (volume): {{ store.getVolumePCR(symbol) }} 
+            &nbsp;
+            Put OI - Call OI : <span :class="{ red: store.getTotalOiDiff(symbol) < 0 }">{{ Number(store.getTotalOiDiff(symbol) * oiMultiplier).toLocaleString() }}</span> 
+          <span/>
         </span>
           <hr /> 
           <div class="headerActions">
